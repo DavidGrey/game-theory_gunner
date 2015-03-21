@@ -14,7 +14,7 @@ Both the player and the AI have 3 options for each round.
 #####Fire:(Press A key)
 - You must have a bullet in order to fire.
 - If your opponent reloads, he will die.
-- If your opponent fires or blocks, you will both surive but still lose a buller.
+- If your opponent fires or blocks, you will both surive but still lose a bullet.
     
 #####Block:(Press S key)
 - Protects you from fire for 1 round.
