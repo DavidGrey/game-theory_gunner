@@ -5,11 +5,9 @@ Overhauled  on Jan 22, 2015
 @author: DavidGrey
 '''
 
-import random
-import graphics
-from graphics import gun, shield, reload, win, loss
+from random import choice
+from ascii import *
 from msvcrt import getwch
-
 from states import game_states
 
 
@@ -38,7 +36,7 @@ def get_move(state):
             continue
         winners += [move]*next
     else:
-        return random.choice(winners)
+        return choice(winners)
 
 
 def run_match(player_move, comp_move, state):
@@ -88,6 +86,7 @@ def main(round = 0):
         values = get_values(curr_state)
         #First move isn't pulled from game states
         if round > 1:
+            #If guaranteed a win, the AI locks itself into firing mode 
             if curr_state['comp_ammo'] > (curr_state['player_ammo'] + (3-player_blocks)):
                 comp_move = 'a'
                 lock = True
@@ -103,15 +102,15 @@ def main(round = 0):
             print ":"
             player_move = getwch()# raw_input(":") #getwch()
             #Confirm player move is valid
-            if player_move in ['a','s','d']:           
+            if player_move in ['a','s','d']:
                 if player_move == 'a' and not curr_state['player_ammo']:
                     print 'You can\'t fire'
                     continue
-                
+
                 elif player_move == 's' and not curr_state['player_block']:
                     print 'You can\'t block'
                     continue
-                               
+
                 elif player_move == 'd' and curr_state['player_ammo'] == 6:
                     print 'You can\'t reload'
                     continue
@@ -127,7 +126,7 @@ def main(round = 0):
         else:
             player_blocks = 0
             curr_state['player_block'] = True
-        
+
         if comp_move == 's':
             comp_blocks += 1
             if comp_blocks == 3:
@@ -136,15 +135,14 @@ def main(round = 0):
             comp_blocks = 0
             curr_state['comp_block'] = True
 
-        
+
 
         #Print match
         print clear + ascii[player_move] +'\n'*2 + ascii[comp_move] + '\n'
 
         result = run_match(player_move, comp_move, curr_state)
 
-        """<Learning Code>"""
-
+        #<Learning Code>
         if player_move == 'a':
             if game_states[values]['s'] not in [ 'N', 'Y']:
                 game_states[values]['s'] += 1
@@ -162,9 +160,7 @@ def main(round = 0):
                 game_states[values]['a'] += 1
             elif game_states[values]['d'] not in [ 'N', 'Y']:
                 game_states[values]['d'] += 1
-
-
-        """<\Learning Code>"""
+        #<\Learning Code>
 
 
         if result in ['Y', 'N']:
@@ -181,4 +177,3 @@ if __name__ == '__main__':
         print "Press any key to play again"
         getwch()
         print main()
-        
