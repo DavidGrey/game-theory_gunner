@@ -1,8 +1,8 @@
 '''           
 Created on Dec 15, 2013
-Resurrected  on Jan 22, 2015
+Overhauled  on Jan 22, 2015
 
-@author: Zeppo
+@author: DavidGrey
 '''
 
 import random
