@@ -113,6 +113,7 @@ def main(round = 0):
             else:
                 comp_move = 'a'
         else:
+            print "A=FIRE - S=BLOCK - D=RELOAD"
             comp_move = choice(['a','s','d'])
 
         #Player selects move
