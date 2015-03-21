@@ -95,7 +95,7 @@ def main(round = 0):
             else:
                 comp_move = 'a'
         else:
-            comp_move = random.choice(['a','s','d'])
+            comp_move = choice(['a','s','d'])
 
         #Player selects move
         while True:
