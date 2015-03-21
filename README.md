@@ -24,12 +24,3 @@ Both the player and the AI have 3 options for each round.
       
       
 The game continues until one player dies or rage quits.
-
-Note that you don't do `make install`; this program is meant to be run from this directory.
-
-### Windows
-
-You have a few options, depending on what you have installed.
-
-- Pure Cygwin: follow the Unix/Linux/OS X instructions above. The resulting DLL can *only* be used with Cygwin programs, so
-  
