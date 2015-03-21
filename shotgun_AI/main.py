@@ -24,7 +24,7 @@ Overhauled  on Jan 22, 2015
 '''
 
 from random import choice
-from ascii import *
+from ascii_art import *
 from msvcrt import getwch
 from states import game_states
 
