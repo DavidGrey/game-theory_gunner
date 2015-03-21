@@ -1,8 +1,10 @@
+##Game Theory Gunner
+
 Game Theory Gunner is a simple learning AI made to play the hand game "Shotgun" - It begins without an understanding of the stategy of the game, but learns over time.
 
 
 
-The rules are as follows:
+##Rules
   The player starts off competing with the AI; both begin with 1 bullet in their gun.
   
   Both the player and the AI have 3 options for each round.
