@@ -15,13 +15,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE."""
-'''           
+SOFTWARE.
+
 Created on Dec 15, 2013
 Overhauled  on Jan 22, 2015
 
 @author: DavidGrey
-'''
+"""
 
 from random import choice
 from ascii_art import *
@@ -29,13 +29,14 @@ from msvcrt import getwch
 from states import game_states
 
 
-clear = "\n" * 20
+clear_screen = "\n" * 20
 
 
 def get_values(state):
     """Takes a dictionary game state as inputs,
-    extracts and returns the values of that dict in a tuple"""
-    keys = ['player_ammo', 'player_block', 'player_prev', 'comp_ammo', 'comp_block', 'comp_prev']
+    wwwextracts and returns the values of that dict in a tuple"""
+    keys = ['player_ammo', 'player_block', 'player_prev',
+            'comp_ammo', 'comp_block', 'comp_prev']
     return tuple([state[key] for key in keys])
 
 
@@ -85,10 +86,11 @@ def run_match(player_move, comp_move, state):
     return game_states[get_values(state)]
 
 
-def main(round = 0):
-    print clear*2
+def main(round=0):
+    """Main function: One run of the function is one round of the game"""
+    print(clear_screen*2)
     curr_state = {'player_ammo':1, 'player_block':True, 'player_prev':'d',
-                   'comp_ammo':1, 'comp_block':True, 'comp_prev':'d'}
+                  'comp_ammo':1, 'comp_block':True, 'comp_prev':'d'}
     lock = False
     player_blocks = 0
     comp_blocks = 0
@@ -100,12 +102,15 @@ def main(round = 0):
     #Main loop
     while True:
         round += 1
-        print 'Round '+str(round)+':\n'+' Your Bullets| ' + '*'*curr_state['player_ammo']+'\n My Bullets  | ' + '*'*curr_state['comp_ammo']+'\n'
+        print('Round '+str(round)+':\n'+' Your Bullets| ' + \
+              '*'*curr_state['player_ammo'] + '\n My Bullets  | ' + \
+              '*'*curr_state['comp_ammo']+'\n')
         values = get_values(curr_state)
         #First move isn't pulled from game states
         if round > 1:
-            #If guaranteed a win, the AI locks itself into firing mode 
-            if curr_state['comp_ammo'] > (curr_state['player_ammo'] + (3-player_blocks)):
+            #If guaranteed a win, the AI locks itself into firing mode
+            if curr_state['comp_ammo'] > (curr_state['player_ammo'] + \
+			    (3 - player_blocks)):
                 comp_move = 'a'
                 lock = True
             if not lock:
@@ -113,29 +118,29 @@ def main(round = 0):
             else:
                 comp_move = 'a'
         else:
-            print "A=FIRE - S=BLOCK - D=RELOAD"
-            comp_move = choice(['a','s','d'])
+            print("A=FIRE - S=BLOCK - D=RELOAD")
+            comp_move = choice(['a', 's', 'd'])
 
         #Player selects move
         while True:
-            print ":"
+            print(":")
             player_move = getwch()# raw_input(":") #getwch()
             #Confirm player move is valid
-            if player_move in ['a','s','d']:
+            if player_move in ['a', 's', 'd']:
                 if player_move == 'a' and not curr_state['player_ammo']:
-                    print 'You can\'t fire'
+                    print('You can\'t fire')
                     continue
 
                 elif player_move == 's' and not curr_state['player_block']:
-                    print 'You can\'t block'
+                    print('You can\'t block')
                     continue
 
                 elif player_move == 'd' and curr_state['player_ammo'] == 6:
-                    print 'You can\'t reload'
+                    print('You can\'t reload')
                     continue
                 break
             else:
-                print clear+"Invalid input\n"+'Round '+str(round)+':\n'
+                print(clear_screen+"Invalid input\n"+'Round '+str(round)+':\n')
 
         #Update block variables
         if player_move == 's':
@@ -156,28 +161,29 @@ def main(round = 0):
 
 
 
-        #Print match
-        print clear + ascii[player_move] +'\n'*2 + ascii[comp_move] + '\n'
+        #print(match
+        print(clear_screen + ascii[player_move] +'\n'*2 + \
+		          ascii[comp_move] + '\n')
 
         result = run_match(player_move, comp_move, curr_state)
 
         #<Learning Code>
         if player_move == 'a':
-            if game_states[values]['s'] not in [ 'N', 'Y']:
+            if game_states[values]['s'] not in ['N', 'Y']:
                 game_states[values]['s'] += 1
-            elif game_states[values]['a'] not in [ 'N', 'Y']:
+            elif game_states[values]['a'] not in ['N', 'Y']:
                 game_states[values]['a'] += 1
 
         elif player_move == 's':
-            if game_states[values]['d'] not in [ 'N', 'Y']:
+            if game_states[values]['d'] not in ['N', 'Y']:
                 game_states[values]['d'] += 1
-            elif game_states[values]['s'] not in [ 'N', 'Y']:
+            elif game_states[values]['s'] not in ['N', 'Y']:
                 game_states[values]['s'] += 1
 
         elif player_move == 'd':
-            if game_states[values]['a'] not in [ 'N', 'Y']:
+            if game_states[values]['a'] not in ['N', 'Y']:
                 game_states[values]['a'] += 1
-            elif game_states[values]['d'] not in [ 'N', 'Y']:
+            elif game_states[values]['d'] not in ['N', 'Y']:
                 game_states[values]['d'] += 1
         #<\Learning Code>
 
@@ -186,13 +192,11 @@ def main(round = 0):
             with open("states.py", "w") as states:
                 states.write('game_states='+str(game_states))
             return ascii[result]
-            input("stop")
-
 
 
 if __name__ == '__main__':
-    print main()
+    print(main())
     while True:
-        print "Press any key to play again"
+        print("Press any key to play again")
         getwch()
-        print main()
+        print(main())
