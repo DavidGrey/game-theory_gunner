@@ -25,9 +25,8 @@ Overhauled  on Jan 22, 2015
 
 from random import choice
 from msvcrt import getwch
-from ascii_art import *
 from states import game_states
-
+from ascii_art import (gun, shield, reload, win, loss)
 
 CLEAR_SCREEN = "\n" * 20
 
