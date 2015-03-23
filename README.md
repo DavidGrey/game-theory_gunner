@@ -17,7 +17,7 @@ Both the player and the AI have 3 options for each round.
 - If your opponent fires or blocks, you will both surive but still lose a bullet.
     
 #####Block:(Press S key)
-- Protects you from fire for 1 round.
+- Protects you if your opponent chose to fire.
 - Both players may block up to 3 times in a row
 
 #####Reload:(Press D key)
