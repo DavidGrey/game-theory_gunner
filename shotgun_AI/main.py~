@@ -214,6 +214,5 @@ if __name__ == '__main__':
 	if choice != 'x':
         	print(main())
 	else:
-            print '\nGoodbye'
             _exit(0)
 
