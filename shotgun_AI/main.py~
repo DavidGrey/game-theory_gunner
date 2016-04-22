@@ -32,7 +32,7 @@ from ascii_art import (gun, shield, reload, win, loss)
 
 CLEAR_SCREEN = "\n" * 20
 
-getch = _Getch()
+GETCH = _Getch()
 
 
 def get_values(state):
@@ -113,7 +113,7 @@ def get_player_move(curr_state):
     """Loops until the play enters a valid move"""
     while True:
         print(":")
-        player_move = getch.__call__()# raw_input(":") #getwch()
+        player_move = GETCH.__call__()# raw_input(":") #getwch()
         #Confirm player move is valid
         if player_move in ['a', 's', 'd']:
             if player_move == 'a' and not curr_state['player_ammo']:
@@ -130,8 +130,8 @@ def get_player_move(curr_state):
             break
         else:
             if player_move == 'x':
-		print 'Goodbye'
-	        _exit(0)
+                print('Goodbye')
+                _exit(0)
 
             print(CLEAR_SCREEN+"Invalid input\n")
     return player_move
@@ -161,7 +161,7 @@ def main(game_round=0):
             print("A=FIRE - S=BLOCK - D=RELOAD")
             comp_move = choice(['a', 's', 'd'])
         else:
-			#If guaranteed a win, the AI locks itself into firing mode
+            #If guaranteed a win, the AI locks itself into firing mode
             if curr_state['comp_ammo'] > (curr_state['player_ammo'] + \
                 (3 - player_blocks)):
                 comp_move = 'a'
@@ -210,9 +210,10 @@ if __name__ == '__main__':
     print(main())
     while True:
         print("Press x to exit or any other key to play again ")
-        choice = getch.__call__()
-	if choice != 'x':
-        	print(main())
-	else:
+        menu_choice = GETCH.__call__()
+        if menu_choice != 'x':
+            print(main())
+        else:
+            print('\nGoodbye')
             _exit(0)
 
