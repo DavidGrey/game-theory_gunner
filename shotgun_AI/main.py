@@ -18,21 +18,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Created on Dec 15, 2013
-Overhauled  on Jan 22, 2015
 
 @author: DavidGrey
 """
 
+import sys
+import tty
+import termios
 from os import _exit
 from random import choice
-from key_input import _Getch
 from states import game_states
-from ascii_art import (gun, shield, reload, win, loss)
+from ascii_art import (gun_art, shield_art, reload_art,
+                       win_art, loss_art, goodbye_art)
 
 
-CLEAR_SCREEN = "\n" * 20
+CLEAR = "\n" * 50
 
-GETCH = _Getch()
+
+def getch():
+    """Waits for a single key input
+    and the returns it without need for the enter key
+    to be pressed mimicking the behavior of msvcrt.getwch() in
+    Windows"""
+    file_desc = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(file_desc)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        char = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(file_desc, termios.TCSADRAIN, old_settings)
+    return char
 
 
 def get_values(state):
@@ -113,42 +128,42 @@ def get_player_move(curr_state):
     """Loops until the play enters a valid move"""
     while True:
         print(":")
-        player_move = GETCH.__call__()# raw_input(":") #getwch()
+        player_move = getch()# raw_input(":") #getwch()
         #Confirm player move is valid
         if player_move in ['a', 's', 'd']:
             if player_move == 'a' and not curr_state['player_ammo']:
-                print('You can\'t fire')
+                print("You can\'t fire")
                 continue
 
             elif player_move == 's' and not curr_state['player_block']:
-                print('You can\'t block')
+                print("You can\'t block")
                 continue
 
             elif player_move == 'd' and curr_state['player_ammo'] == 6:
-                print('You can\'t reload')
+                print("You can\'t reload")
                 continue
             break
         else:
-            if player_move == 'x':
-                print('Goodbye')
+            if player_move == 'q':
+                print(CLEAR + goodbye_art)
                 _exit(0)
 
-            print(CLEAR_SCREEN+"Invalid input\n")
+            print(CLEAR+"Invalid input\n")
     return player_move
 
 
 def main(game_round=0):
     """Main function: One run of the function is one game_round of the game"""
-    print(CLEAR_SCREEN*2)
+    print(CLEAR*2)
     curr_state = {'player_ammo':1, 'player_block':True, 'player_prev':'d',
                   'comp_ammo':1, 'comp_block':True, 'comp_prev':'d'}
     player_blocks = 0
     comp_blocks = 0
-    asciis = {'a':gun,
-              's': shield,
-              'd':reload,
-              'Y':loss,
-              'N':win}
+    asciis = {'a':gun_art,
+              's': shield_art,
+              'd':reload_art,
+              'Y':loss_art,
+              'N':win_art}
     #Main loop
     while True:
         game_round += 1
@@ -191,7 +206,7 @@ def main(game_round=0):
 
 
         #print(match
-        print(CLEAR_SCREEN + asciis[player_move] +'\n'*2 + \
+        print(CLEAR + asciis[player_move] +'\n'*2 + \
                   asciis[comp_move] + '\n')
 
         result = run_match(player_move, comp_move, curr_state)
@@ -209,11 +224,11 @@ def main(game_round=0):
 if __name__ == '__main__':
     print(main())
     while True:
-        print("Press x to exit or any other key to play again ")
-        MENU_CHOICE = GETCH.__call__()
-        if MENU_CHOICE != 'x':
+        print("Press q to exit or any other key to play again ")
+        MENU_CHOICE = getch()
+        if MENU_CHOICE != 'q':
             print(main())
         else:
-            print('\nGoodbye')
+            print(CLEAR + goodbye_art)
             _exit(0)
 
