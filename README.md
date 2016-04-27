@@ -31,4 +31,4 @@ Both the player and the AI have 3 options for each round.
 The game continues until one player is shot or rage quits!
 
 
-*Tested on Ubuntu with Python 3.4 but should work fine on windows and with older versions of Python*
+*Tested on Ubuntu with Python 3.4 but should work fine on Windows and with older versions of Python*
