@@ -30,10 +30,16 @@ from os import _exit
 from random import choice
 from states import game_states
 from ascii_art import (gun_art, shield_art, reload_art,
-                       win_art, loss_art, goodbye_art)
+                       win_art, loss_art, goodbye_art, title_art)
 
 
 CLEAR = "\n" * 50
+
+asciis = {'a':gun_art,
+              's': shield_art,
+              'd':reload_art,
+              'Y':loss_art,
+              'N':win_art}
 
 
 def getch():
@@ -128,20 +134,20 @@ def update_game_states(player_move, values):
 def get_player_move(curr_state):
     """Loops until the play enters a valid move"""
     while True:
-        print(":")
+        print(':')
         player_move = getch()# raw_input(":") #getwch()
         #Confirm player move is valid
         if player_move in ['a', 's', 'd']:
-            if player_move == 'a' and not curr_state['player_ammo']:
-                print("You can\'t fire")
+            if player_move == 'a' and not curr_state['player_ammo']:        
+                print("You can\'t fire\n:")
                 continue
 
             elif player_move == 's' and not curr_state['player_block']:
-                print("You can\'t block")
+                print("You can\'t block\n:")
                 continue
 
-            elif player_move == 'd' and curr_state['player_ammo'] == 6:
-                print("You can\'t reload")
+            elif player_move == 'd' and curr_state['player_ammo'] == 6:               
+                print("You can\'t reload\n:")
                 continue
             break
         else:
@@ -149,22 +155,19 @@ def get_player_move(curr_state):
                 print(CLEAR + goodbye_art)
                 _exit(0)
 
-            print(CLEAR+"Invalid input\n")
+            print("Invalid input\n:")
     return player_move
 
 
 def main(game_round=0):
     """Main function: One run of the function is one game_round of the game"""
-    print(CLEAR*2)
+    print(CLEAR+title_art+"\n"*5)
     curr_state = {'player_ammo':1, 'player_block':True, 'player_prev':'d',
                   'comp_ammo':1, 'comp_block':True, 'comp_prev':'d'}
     player_blocks = 0
     comp_blocks = 0
-    asciis = {'a':gun_art,
-              's': shield_art,
-              'd':reload_art,
-              'Y':loss_art,
-              'N':win_art}
+    
+
     #Main loop
     while True:
         game_round += 1
@@ -206,9 +209,9 @@ def main(game_round=0):
 
 
 
-        #print(match
+        #Display current game situation with ascii art
         print(CLEAR + asciis[player_move] +'\n'*2 + \
-                  asciis[comp_move] + '\n')
+              asciis[comp_move] + '\n')
 
         result = run_match(player_move, comp_move, curr_state)
 
