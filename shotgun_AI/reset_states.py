@@ -18,7 +18,7 @@ moves = ['a','s','d']
 for state in game_states:
     for move in moves:
         if type(game_states[state][move]) == int:
-            game_states[state][move] = 0
+            game_states[state][move] = 1
 
 
     

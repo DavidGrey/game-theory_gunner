@@ -64,7 +64,7 @@ def get_move(state):
     returns a move based on locked bool values
     and states weights"""
     entry = game_states[get_values(state)]
-    winners = []
+    options = list()
 
     for move in entry:
         move_result = entry[move]
@@ -72,8 +72,8 @@ def get_move(state):
             return move
         elif move_result == 'N':
             continue
-        winners += [move]*move_result
-    return choice(winners)
+        options.extend([move]*move_result)
+    return choice(options)
 
 
 def run_match(player_move, comp_move, state):

@@ -35,7 +35,7 @@ from ascii_art import (gun_art, shield_art, reload_art,
 
 CLEAR = "\n" * 50
 
-print game_states
+
 def getch():
     """Waits for a single key input
     and the returns it without need for the enter key
@@ -64,7 +64,7 @@ def get_move(state):
     returns a move based on locked bool values
     and states weights"""
     entry = game_states[get_values(state)]
-    winners = []
+    options = list()
 
     for move in entry:
         move_result = entry[move]
@@ -72,8 +72,8 @@ def get_move(state):
             return move
         elif move_result == 'N':
             continue
-        winners += [move]*move_result
-    return choice(winners)
+        options.extend([move]*move_result)
+    return choice(options)
 
 
 def run_match(player_move, comp_move, state):
@@ -228,9 +228,6 @@ if __name__ == '__main__':
     print(main())
     while True:
         print("Press q to exit or any other key to play again ")
-        print(sum([val['a'] for val in game_states.values() if type(val['a']) == type(1)]))
-        print(sum([val['s'] for val in game_states.values() if type(val['s']) == type(1)]))
-        print(sum([val['d'] for val in game_states.values() if type(val['d']) == type(1)]))
         MENU_CHOICE = getch()
         if MENU_CHOICE != 'q':
             print(main())
