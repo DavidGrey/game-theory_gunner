@@ -1,4 +1,5 @@
 ##Game Theory Gunner
+![alt tag](http://i.imgur.com/iCedTT2.png)
 
 Game Theory Gunner is a simple learning AI made to play the hand game "Shotgun" - It begins without an understanding of the stategy of the game, but learns over time.
 
@@ -30,4 +31,5 @@ Both the player and the AI have 3 options for each round.
 The game continues until one player is shot or rage quits!
 
 
-*Tested on Ubuntu with Python 3.4 but should work fine on windows and with older versions of Python*
+
+*Tested on Ubuntu with Python 3.4 but should work fine on Windows and with older versions of Python*
