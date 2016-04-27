@@ -35,7 +35,7 @@ from ascii_art import (gun_art, shield_art, reload_art,
 
 CLEAR = "\n" * 50
 
-
+print game_states
 def getch():
     """Waits for a single key input
     and the returns it without need for the enter key
