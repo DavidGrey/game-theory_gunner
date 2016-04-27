@@ -173,17 +173,15 @@ def main(game_round=0):
         game_round += 1
         print('Round '+str(game_round)+':\n'+' Your Bullets| ' + \
               '*'*curr_state['player_ammo'] + '\n My Bullets  | ' + \
-              '*'*curr_state['comp_ammo']+'\n')
+              '*'*curr_state['comp_ammo']+'\n\n'+"A=FIRE - S=BLOCK - D=RELOAD")
         values = get_values(curr_state)
 
         #First move isn't pulled from game states
         if game_round == 1:
-            print("A=FIRE - S=BLOCK - D=RELOAD")
             comp_move = choice(['a', 's', 'd'])
         else:
             #If guaranteed a win, the AI locks itself into firing mode
-            if curr_state['comp_ammo'] > (curr_state['player_ammo'] + \
-                (3 - player_blocks)):
+            if curr_state['comp_ammo'] > (3 - player_blocks) and (curr_state['player_ammo'] == 0):
                 comp_move = 'a'
             else:
                 comp_move = get_move(curr_state)
