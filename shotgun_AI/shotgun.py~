@@ -135,7 +135,7 @@ def get_player_move(curr_state):
     """Loops until the play enters a valid move"""
     while True:
         print(':')
-        player_move = getch()
+        player_move = getch()# raw_input(":") #getwch()
         #Confirm player move is valid
         if player_move in ['a', 's', 'd']:
             if player_move == 'a' and not curr_state['player_ammo']:

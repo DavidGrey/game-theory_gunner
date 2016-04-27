@@ -4,7 +4,7 @@ from states import game_states
 while True:
     confirm_reset = raw_input("""\nAre you sure you want to reset the game states?\n
 Doing so will erase everything the AI has learned while playing.\n
-Erase everything? [Y/n] """)
+Erase everything? Y/n: """)
     
     if confirm_reset.upper() == 'Y':
         break
