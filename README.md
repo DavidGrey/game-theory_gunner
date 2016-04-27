@@ -32,4 +32,4 @@ The game continues until one player is shot or rage quits!
 
 
 
-*Tested on Ubuntu with Python 3.4 but should with older versions of Python on any Major OS*
+*Tested on Ubuntu with Python 3.4 but should with older versions of Python on any major OS*
