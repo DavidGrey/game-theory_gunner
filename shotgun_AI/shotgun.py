@@ -25,6 +25,7 @@ Created on Dec 15, 2013
 import sys
 import tty
 import termios
+import os
 from os import _exit
 from random import choice
 from states import game_states
@@ -217,7 +218,9 @@ def main(game_round=0):
 
         if result in ['Y', 'N']:
             with open("states.py", "w") as states:
+                states.truncate()
                 states.write('game_states='+str(game_states))
+                states.close()
             return asciis[result]
 
 
