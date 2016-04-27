@@ -1,4 +1,5 @@
 ##Game Theory Gunner
+![alt tag](https://i.imgur.com/NsOuonY.png)
 
 Game Theory Gunner is a simple learning AI made to play the hand game "Shotgun" - It begins without an understanding of the stategy of the game, but learns over time.
 
