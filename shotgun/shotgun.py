@@ -220,11 +220,14 @@ def main(game_round=0):
 
 
         if result in ['Y', 'N']:
-            with open("states.py", "w") as states:
-                states.truncate()
-                states.write('game_states='+str(game_states))
-                states.close()
-            return ASCII[result]
+            try:            
+                with open("states.py", "w") as states:
+                    states.truncate()
+                    states.write('game_states='+str(game_states))
+                    states.close()
+                return ASCII[result]
+            except:
+                print("Couldn't save new learned data to states.py")
 
 
 if __name__ == '__main__':
