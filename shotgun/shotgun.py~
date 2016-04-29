@@ -116,7 +116,7 @@ def update_game_states(player_move, values):
     ordered = sorted([n for n in game_states[values].values() if type(n) != str])[::-1]    
     for i in range(3):    
         opt_a_letter = moves[i]
-        opt_a_number = game_states[values][opt_a_letter]
+        opt_a_numer = game_states[values][opt_a_letter]
         
         opt_b_letter = moves[i-2]
         opt_b_number = game_states[values][opt_b_letter]
