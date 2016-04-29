@@ -125,7 +125,7 @@ def update_game_states(player_move, values):
             if type(opt_b_number) == int:
                 if not (opt_b_number == ordered[0] and
                        (opt_b_number-ordered[1]) >= 10):
-                    print(opt_a_letter+" += 1")                
+                    print(opt_b_letter+" += 1")                
                     game_states[values][opt_b_letter] += 1
                     print(game_states[values])
             elif type(opt_a_number) == int:
