@@ -113,26 +113,25 @@ def run_match(player_move, comp_move, state):
 def update_game_states(player_move, values):
     """Update game_states with the new data from the players move"""
     moves = ['a', 's', 'd']
-    ordered = sorted([n for n in game_states[values].values() if type(n) != str])[::-1]    
-    for i in range(3):    
+    ordered = sorted([n for n in game_states[values].values()
+                      if type(n) != str])[::-1]
+    for i in range(3):
         opt_a_letter = moves[i]
         opt_a_number = game_states[values][opt_a_letter]
-        
+
         opt_b_letter = moves[i-2]
         opt_b_number = game_states[values][opt_b_letter]
 
         if player_move == moves[i]:
             if type(opt_b_number) == int:
                 if not (opt_b_number == ordered[0] and
-                       (opt_b_number-ordered[1]) >= 10):
-                    print(opt_b_letter+" += 1")                
+                        (opt_b_number-ordered[1]) >= 10):
                     game_states[values][opt_b_letter] += 1
-                    print(game_states[values])
-            elif type(opt_a_number) == int:
-                if not (opt_a_number == ordered[0] and
-                       (opt_a_number-ordered[1]) >= 10):
-                    print(opt_a_letter+" += 1")                
-                    game_states[values][opt_a_letter] += 1
+
+        elif type(opt_a_number) == int:
+            if not (opt_a_number == ordered[0] and
+                    (opt_a_number-ordered[1]) >= 10):
+                game_states[values][opt_a_letter] += 1
 
 
 def get_player_move(curr_state):
@@ -185,7 +184,8 @@ def main(game_round=0):
             comp_move = choice(['a', 's', 'd'])
         else:
             #If guaranteed a win, the AI locks itself into firing mode
-            if curr_state['comp_ammo'] > (3 - player_blocks) and (curr_state['player_ammo'] == 0):
+            if (curr_state['comp_ammo'] > (3-player_blocks) and
+                    curr_state['player_ammo'] == 0):
                 comp_move = 'a'
             else:
                 comp_move = get_move(curr_state)
@@ -222,13 +222,13 @@ def main(game_round=0):
 
 
         if result in ['Y', 'N']:
-            try:            
+            try:
                 with open("states.py", "w") as states:
                     states.truncate()
                     states.write('game_states='+str(game_states))
                     states.close()
                 return ASCII[result]
-            except:
+            except IOError:
                 print("Couldn't save new learned data to states.py")
 
 
