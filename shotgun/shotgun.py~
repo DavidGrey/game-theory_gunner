@@ -25,7 +25,7 @@ Created on Dec 15, 2013
 import sys
 import tty
 import termios
-from os import _exit
+import os
 from random import choice
 from states import game_states
 from ascii_art import (gun_art, shield_art, reload_art,
@@ -156,7 +156,7 @@ def get_player_move(curr_state):
         else:
             if player_move == 'q':
                 print(CLEAR + goodbye_art)
-                _exit(0)
+                os._exit(0)
 
             print("Invalid input")
     return player_move
@@ -165,6 +165,7 @@ def get_player_move(curr_state):
 def main(game_round=0):
     """Main function: One run of the function is one game_round of the game"""
     print(CLEAR+title_art+"\n"*5)
+    print(os.path.dirname(full_path))
     #Initial game state
     curr_state = {'player_ammo':1, 'player_block':True, 'player_prev':'d',
                   'comp_ammo':1, 'comp_block':True, 'comp_prev':'d'}
@@ -185,7 +186,7 @@ def main(game_round=0):
         else:
             #If guaranteed a win, the AI locks itself into firing mode
             if (curr_state['comp_ammo'] > (3-player_blocks) and
-                  curr_state['player_ammo'] == 0):
+                    curr_state['player_ammo'] == 0):
                 comp_move = 'a'
             else:
                 comp_move = get_move(curr_state)
@@ -241,5 +242,5 @@ if __name__ == '__main__':
             print(main())
         else:
             print(CLEAR + goodbye_art)
-            _exit(0)
+            os._exit(0)
 
